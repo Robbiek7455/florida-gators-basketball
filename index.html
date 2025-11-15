@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florida Gators Basketball - Unofficial Fan Site</title>
+    
+    <!-- Bootstrap for easy styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Gators colors and styling -->
+    <style>
+        :root {
+            --gator-orange: #FA4616;
+            --gator-blue: #0021A5;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .navbar {
+            background-color: var(--gator-blue) !important;
+        }
+        
+        .btn-gator {
+            background-color: var(--gator-orange);
+            color: white;
+            border: none;
+        }
+        
+        .btn-gator:hover {
+            background-color: #e03d0f;
+            color: white;
+        }
+        
+        .gator-header {
+            background: linear-gradient(135deg, var(--gator-blue) 0%, var(--gator-orange) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .game-card {
+            border: 2px solid var(--gator-blue);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .live-indicator {
+            color: red;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+        
+        .disclaimer {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-top: 2px solid #dee2e6;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">🐊 Gators Basketball Hub</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#schedule">Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#roster">Roster</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stats">Stats</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tickets">Tickets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#shop">Shop</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="gator-header">
+        <h1>Florida Gators Men's Basketball</h1>
+        <p>Unofficial Fan Site - Go Gators! 🏀</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Live Score Section -->
+        <div id="live-score" class="alert alert-info" style="display: none;">
+            <h4><span class="live-indicator">🔴 LIVE</span> Current Game</h4>
+            <div id="score-content"></div>
+        </div>
+
+        <!-- Schedule Section -->
+        <section id="schedule" class="mb-5">
+            <h2>Upcoming Games</h2>
+            <div id="schedule-container">
+                <div class="text-center p-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading schedule...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roster Section -->
+        <section id="roster" class="mb-5">
+            <h2>Team Roster</h2>
+            <div id="roster-container">
+                <div class="text-center p-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading roster...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats" class="mb-5">
+            <h2>Team Statistics</h2>
+            <div id="stats-container">
+                <div class="text-center p-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading stats...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tickets Section -->
+        <section id="tickets" class="mb-5">
+            <h2>Get Tickets</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Official Tickets</h5>
+                            <p class="card-text">Purchase tickets directly from the official Florida Gators ticket office.</p>
+                            <a href="https://floridagators.com/sports/2015/12/10/tickets.aspx" target="_blank" class="btn btn-gator">Buy Official Tickets</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">StubHub</h5>
+                            <p class="card-text">Find resale tickets from verified sellers.</p>
+                            <a href="https://www.stubhub.com/florida-gators-basketball-tickets/performer/6831/" target="_blank" class="btn btn-gator">Browse StubHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Section -->
+        <section id="shop" class="mb-5">
+            <h2>Gators Gear</h2>
+            <div class="alert alert-warning">
+                Support the site by shopping through our affiliate links!
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Official Team Store</h5>
+                            <a href="https://shop.floridagators.com/florida-gators-mens/t-34709207+ga-67+z-921817-2579429148" target="_blank" class="btn btn-gator w-100">Shop Official Gear</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Fanatics</h5>
+                            <a href="https://www.fanatics.com/college/florida-gators/o-27+t-89617425+z-936538-3141635590" target="_blank" class="btn btn-gator w-100">Shop Fanatics</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Amazon</h5>
+                            <a href="https://www.amazon.com/s?k=florida+gators+basketball" target="_blank" class="btn btn-gator w-100">Shop Amazon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+        <p><strong>Disclaimer:</strong> This website is not affiliated with, endorsed by, or associated with the University of Florida, University Athletic Association, or NCAA. All trademarks, logos, and brand names are the property of their respective owners. This is an unofficial fan site.</p>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Data fetching script -->
+    <script src="app.js"></script>
+</body>
+</html>
