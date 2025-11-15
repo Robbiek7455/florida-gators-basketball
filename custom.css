@@ -1,0 +1,45 @@
+/* Custom Gators Styling */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+h1, h2 {
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 2px;
+}
+
+.gator-header {
+    background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.gator-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0,33,165,0.8) 0%, rgba(250,70,22,0.8) 100%);
+}
+
+.gator-header > * {
+    position: relative;
+    z-index: 1;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,33,165,0.3);
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    .game-card {
+        margin-bottom: 1rem;
+    }
+}
