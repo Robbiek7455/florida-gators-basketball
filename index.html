@@ -1,128 +1,601 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="custom.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Florida Gators Basketball - Unofficial Fan Site</title>
+    <title>Florida Gators Basketball Hub - Unofficial Fan Site by Robbiek7455</title>
+    <meta name="description" content="The ultimate Florida Gators Basketball fan site with live scores, stats, news, and more!">
     
-    <!-- Bootstrap for easy styling -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Gators colors and styling -->
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom Styles -->
     <style>
         :root {
             --gator-orange: #FA4616;
             --gator-blue: #0021A5;
+            --gator-green: #00529B;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
         }
         
+        h1, h2, h3 {
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 2px;
+        }
+        
+        /* Navigation */
         .navbar {
-            background-color: var(--gator-blue) !important;
+            background: linear-gradient(90deg, var(--gator-blue) 0%, var(--gator-orange) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .btn-gator {
-            background-color: var(--gator-orange);
-            color: white;
-            border: none;
+        .navbar-brand {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
         }
         
-        .btn-gator:hover {
-            background-color: #e03d0f;
-            color: white;
-        }
-        
+        /* Hero Header */
         .gator-header {
-            background: linear-gradient(135deg, var(--gator-blue) 0%, var(--gator-orange) 100%);
+            background: url('https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=1200') center/cover;
+            position: relative;
+            padding: 4rem 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .gator-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,33,165,0.9) 0%, rgba(250,70,22,0.7) 100%);
+        }
+        
+        .gator-header > * {
+            position: relative;
+            z-index: 2;
             color: white;
-            padding: 2rem;
             text-align: center;
         }
         
-        .game-card {
-            border: 2px solid var(--gator-blue);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+        .gator-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s;
+        }
+        
+        /* Live Score Ticker */
+        .live-ticker {
+            background: var(--gator-orange);
+            color: white;
+            padding: 15px;
+            position: sticky;
+            top: 56px;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         .live-indicator {
-            color: red;
-            font-weight: bold;
-            animation: blink 1s infinite;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            animation: pulse 1s infinite;
+            margin-right: 5px;
         }
         
-        @keyframes blink {
-            0%, 50%, 100% { opacity: 1; }
-            25%, 75% { opacity: 0.5; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        
+        /* Cards and Components */
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--gator-blue);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .game-card {
+            background: white;
+            border-left: 5px solid var(--gator-orange);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(250,70,22,0.3);
+        }
+        
+        .player-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .player-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .player-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--gator-blue) 0%, var(--gator-orange) 100%);
+        }
+        
+        .player-card-body {
+            padding: 15px;
+        }
+        
+        /* Countdown Timer */
+        .countdown-container {
+            background: linear-gradient(135deg, var(--gator-blue) 0%, var(--gator-orange) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .countdown-item {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Bebas Neue', cursive;
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Stats Section */
+        .stat-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--gator-orange);
+            font-family: 'Bebas Neue', cursive;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Button Styles */
+        .btn-gator {
+            background: linear-gradient(135deg, var(--gator-orange) 0%, #e03d0f 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gator:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(250,70,22,0.4);
+            color: white;
+        }
+        
+        /* Social Share Buttons */
+        .share-buttons {
+            margin: 20px 0;
+        }
+        
+        .share-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+        
+        .share-twitter { background: #1DA1F2; }
+        .share-facebook { background: #4267B2; }
+        .share-reddit { background: #FF4500; }
+        
+        /* Poll Section */
+        .poll-option {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .poll-option:hover {
+            background: var(--gator-orange);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .poll-option.selected {
+            background: var(--gator-blue);
+            color: white;
+            border-color: var(--gator-orange);
+        }
+        
+        /* Weather Widget */
+        .weather-widget {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
         }
         
         .disclaimer {
-            background-color: #f8f9fa;
-            padding: 1rem;
-            margin-top: 2rem;
-            border-top: 2px solid #dee2e6;
-            font-size: 0.9rem;
-            text-align: center;
+            background: #f8f9fa;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 5px solid var(--gator-orange);
+            border-radius: 5px;
+        }
+        
+        /* Animations */
+        .animate-in {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .gator-header h1 {
+                font-size: 2rem;
+            }
+            
+            .countdown-item {
+                margin: 0 5px;
+            }
+            
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Loading Animation */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--gator-orange);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Scroll to Top Button */
+        #scrollTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gator-orange);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        #scrollTop:hover {
+            background: var(--gator-blue);
+            transform: translateY(-5px);
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">🐊 Gators Basketball Hub</a>
+            <a class="navbar-brand animate__animated animate__bounceInLeft" href="#">
+                <i class="fas fa-basketball-ball"></i> GATORS BASKETBALL HUB
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#schedule">Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#roster">Roster</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#stats">Stats</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tickets">Tickets</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#shop">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#home"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#schedule"><i class="fas fa-calendar"></i> Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#roster"><i class="fas fa-users"></i> Roster</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stats"><i class="fas fa-chart-bar"></i> Stats</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#standings"><i class="fas fa-trophy"></i> Standings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#news"><i class="fas fa-newspaper"></i> News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#media"><i class="fas fa-video"></i> Media</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tickets"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#shop"><i class="fas fa-shopping-cart"></i> Shop</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Header -->
-    <div class="gator-header">
-        <h1>Florida Gators Men's Basketball</h1>
-        <p>Unofficial Fan Site - Go Gators! 🏀</p>
+    <!-- Live Score Ticker -->
+    <div id="live-ticker" class="live-ticker" style="display: none;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <span class="live-indicator"></span>
+                    <strong>LIVE NOW</strong>
+                </div>
+                <div class="col" id="ticker-content">
+                    <!-- Live score will appear here -->
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container mt-4">
-        <!-- Live Score Section -->
-        <div id="live-score" class="alert alert-info" style="display: none;">
-            <h4><span class="live-indicator">🔴 LIVE</span> Current Game</h4>
-            <div id="score-content"></div>
+    <!-- Hero Header -->
+    <div class="gator-header" id="home">
+        <h1 class="animate__animated animate__fadeInDown">FLORIDA GATORS</h1>
+        <p class="animate__animated animate__fadeInUp animate__delay-1s">MEN'S BASKETBALL 2024-25 SEASON</p>
+        <p class="animate__animated animate__fadeInUp animate__delay-2s">🐊 GO GATORS! 🏀</p>
+        <div class="share-buttons animate__animated animate__fadeInUp animate__delay-3s">
+            <a href="https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20Florida%20Gators%20Basketball%20site!&url=https://robbiek7455.github.io/florida-gators-basketball/" target="_blank" class="share-btn share-twitter">
+                <i class="fab fa-twitter"></i> Tweet
+            </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://robbiek7455.github.io/florida-gators-basketball/" target="_blank" class="share-btn share-facebook">
+                <i class="fab fa-facebook"></i> Share
+            </a>
+            <a href="https://reddit.com/submit?url=https://robbiek7455.github.io/florida-gators-basketball/&title=Florida%20Gators%20Basketball%20Hub" target="_blank" class="share-btn share-reddit">
+                <i class="fab fa-reddit"></i> Reddit
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Game Countdown -->
+        <div class="countdown-container animate-in">
+            <h2>NEXT GAME COUNTDOWN</h2>
+            <div id="next-game-info"></div>
+            <div id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-value" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Dashboard -->
+        <div class="row mb-4">
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box animate-in">
+                    <div class="stat-value" id="season-record">0-0</div>
+                    <div class="stat-label">Season Record</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box animate-in">
+                    <div class="stat-value" id="conf-record">0-0</div>
+                    <div class="stat-label">SEC Record</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box animate-in">
+                    <div class="stat-value" id="home-record">0-0</div>
+                    <div class="stat-label">Home Record</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box animate-in">
+                    <div class="stat-value" id="ranking">#--</div>
+                    <div class="stat-label">AP Ranking</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weather Widget for Game Day -->
+        <div class="weather-widget animate-in">
+            <h4><i class="fas fa-cloud-sun"></i> Gainesville Weather</h4>
+            <div id="weather-content">
+                <p>Loading weather for game day...</p>
+            </div>
+        </div>
+
+        <!-- Fan Poll -->
+        <div class="feature-card animate-in">
+            <h3><i class="fas fa-poll"></i> FAN POLL OF THE WEEK</h3>
+            <p><strong>Who will be the Gators' MVP this season?</strong></p>
+            <div id="poll-options">
+                <div class="poll-option" onclick="vote('option1')">
+                    <i class="fas fa-check-circle"></i> Top Returning Player
+                    <span class="float-end" id="vote1">0%</span>
+                </div>
+                <div class="poll-option" onclick="vote('option2')">
+                    <i class="fas fa-check-circle"></i> New Transfer
+                    <span class="float-end" id="vote2">0%</span>
+                </div>
+                <div class="poll-option" onclick="vote('option3')">
+                    <i class="fas fa-check-circle"></i> Breakout Sophomore
+                    <span class="float-end" id="vote3">0%</span>
+                </div>
+                <div class="poll-option" onclick="vote('option4')">
+                    <i class="fas fa-check-circle"></i> Freshman Phenom
+                    <span class="float-end" id="vote4">0%</span>
+                </div>
+            </div>
+            <p class="mt-3 text-muted"><small>Total votes: <span id="total-votes">0</span></small></p>
         </div>
 
         <!-- Schedule Section -->
         <section id="schedule" class="mb-5">
-            <h2>Upcoming Games</h2>
-            <div id="schedule-container">
-                <div class="text-center p-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading schedule...</span>
-                    </div>
+            <h2 class="mb-4"><i class="fas fa-calendar-alt"></i> UPCOMING GAMES</h2>
+            <div class="feature-card">
+                <div id="schedule-container">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEC Standings -->
+        <section id="standings" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-trophy"></i> SEC STANDINGS</h2>
+            <div class="feature-card">
+                <div id="standings-container">
+                    <div class="loader"></div>
                 </div>
             </div>
         </section>
 
         <!-- Roster Section -->
         <section id="roster" class="mb-5">
-            <h2>Team Roster</h2>
-            <div id="roster-container">
-                <div class="text-center p-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading roster...</span>
+            <h2 class="mb-4"><i class="fas fa-users"></i> TEAM ROSTER</h2>
+            <div class="feature-card">
+                <div id="roster-container">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Spotlight -->
+        <section id="spotlight" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-star"></i> PLAYER SPOTLIGHT</h2>
+            <div class="feature-card">
+                <div id="player-spotlight">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="https://via.placeholder.com/400x300/0021A5/FA4616?text=Player+Spotlight" class="img-fluid rounded" alt="Player Spotlight">
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Featured Player</h3>
+                            <p>Check back during the season for featured player profiles, including stats, highlights, and exclusive interviews!</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary me-2">PPG: --</span>
+                                <span class="badge bg-primary me-2">RPG: --</span>
+                                <span class="badge bg-primary me-2">APG: --</span>
+                                <span class="badge bg-primary">FG%: --</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,36 +603,124 @@
 
         <!-- Stats Section -->
         <section id="stats" class="mb-5">
-            <h2>Team Statistics</h2>
-            <div id="stats-container">
-                <div class="text-center p-4">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading stats...</span>
+            <h2 class="mb-4"><i class="fas fa-chart-bar"></i> TEAM STATISTICS</h2>
+            <div class="feature-card">
+                <div id="stats-container">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historical Records -->
+        <section id="history" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-history"></i> GATORS HISTORY</h2>
+            <div class="feature-card">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-3">
+                        <h1 class="text-primary">2</h1>
+                        <p>National Championships<br>(2006, 2007)</p>
                     </div>
+                    <div class="col-md-4 text-center mb-3">
+                        <h1 class="text-primary">4</h1>
+                        <p>Final Four Appearances</p>
+                    </div>
+                    <div class="col-md-4 text-center mb-3">
+                        <h1 class="text-primary">7</h1>
+                        <p>SEC Tournament Championships</p>
+                    </div>
+                </div>
+                <hr>
+                <h4>Notable Alumni</h4>
+                <p>🏀 Joakim Noah • Al Horford • Bradley Beal • Corey Brewer • Mike Miller • Udonis Haslem • Chandler Parsons</p>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-newspaper"></i> LATEST NEWS</h2>
+            <div class="feature-card">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h4>Twitter Feed</h4>
+                        <a class="twitter-timeline" data-height="500" data-theme="light" href="https://twitter.com/GatorsMBK?ref_src=twsrc%5Etfw">Tweets by GatorsMBK</a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h4>Team Updates</h4>
+                        <div class="list-group">
+                            <a href="https://floridagators.com/sports/mens-basketball" target="_blank" class="list-group-item list-group-item-action">
+                                <i class="fas fa-external-link-alt"></i> Official Team Page
+                            </a>
+                            <a href="https://www.espn.com/mens-college-basketball/team/_/id/57/florida-gators" target="_blank" class="list-group-item list-group-item-action">
+                                <i class="fas fa-external-link-alt"></i> ESPN Team Page
+                            </a>
+                            <a href="https://www.reddit.com/r/FloridaGators/" target="_blank" class="list-group-item list-group-item-action">
+                                <i class="fab fa-reddit"></i> r/FloridaGators Community
+                            </a>
+                            <a href="https://www.gatorsports.com/florida-gators-basketball/" target="_blank" class="list-group-item list-group-item-action">
+                                <i class="fas fa-external-link-alt"></i> GatorSports.com
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Section -->
+        <section id="media" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-video"></i> VIDEO HIGHLIGHTS</h2>
+            <div class="feature-card">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/?listType=search&list=florida+gators+basketball+highlights+2024" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/?listType=search&list=florida+gators+basketball+top+plays" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="https://www.youtube.com/c/floridagators/videos" target="_blank" class="btn btn-gator">
+                        <i class="fab fa-youtube"></i> More Videos
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- Tickets Section -->
         <section id="tickets" class="mb-5">
-            <h2>Get Tickets</h2>
+            <h2 class="mb-4"><i class="fas fa-ticket-alt"></i> GET TICKETS</h2>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Official Tickets</h5>
-                            <p class="card-text">Purchase tickets directly from the official Florida Gators ticket office.</p>
-                            <a href="https://floridagators.com/sports/2015/12/10/tickets.aspx" target="_blank" class="btn btn-gator">Buy Official Tickets</a>
-                        </div>
+                <div class="col-md-4 mb-3">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-ticket-alt fa-3x text-primary mb-3"></i>
+                        <h5>Official Tickets</h5>
+                        <p>Get tickets directly from the University of Florida</p>
+                        <a href="https://floridagators.com/sports/2015/12/10/tickets.aspx" target="_blank" class="btn btn-gator">
+                            Buy Official
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">StubHub</h5>
-                            <p class="card-text">Find resale tickets from verified sellers.</p>
-                            <a href="https://www.stubhub.com/florida-gators-basketball-tickets/performer/6831/" target="_blank" class="btn btn-gator">Browse StubHub</a>
-                        </div>
+                <div class="col-md-4 mb-3">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-exchange-alt fa-3x text-primary mb-3"></i>
+                        <h5>StubHub</h5>
+                        <p>Verified resale tickets with buyer guarantee</p>
+                        <a href="https://www.stubhub.com/florida-gators-basketball-tickets/performer/6831/" target="_blank" class="btn btn-gator">
+                            Browse StubHub
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-calendar-check fa-3x text-primary mb-3"></i>
+                        <h5>SeatGeek</h5>
+                        <p>Compare prices from multiple sellers</p>
+                        <a href="https://seatgeek.com/florida-gators-basketball-tickets" target="_blank" class="btn btn-gator">
+                            Check SeatGeek
+                        </a>
                     </div>
                 </div>
             </div>
@@ -167,48 +728,145 @@
 
         <!-- Shop Section -->
         <section id="shop" class="mb-5">
-            <h2>Gators Gear</h2>
-            <div class="alert alert-warning">
-                Support the site by shopping through our affiliate links!
+            <h2 class="mb-4"><i class="fas fa-shopping-cart"></i> GATOR GEAR</h2>
+            <div class="alert alert-success text-center">
+                <i class="fas fa-percentage"></i> Support this fan site by shopping through our links!
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Official Team Store</h5>
-                            <a href="https://shop.floridagators.com/florida-gators-mens/t-34709207+ga-67+z-921817-2579429148" target="_blank" class="btn btn-gator w-100">Shop Official Gear</a>
-                        </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-tshirt fa-2x text-primary mb-2"></i>
+                        <h6>Official Store</h6>
+                        <a href="https://shop.floridagators.com/florida-gators-mens/t-34709207+ga-67+z-921817-2579429148" target="_blank" class="btn btn-sm btn-gator">
+                            Shop Now
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Fanatics</h5>
-                            <a href="https://www.fanatics.com/college/florida-gators/o-27+t-89617425+z-936538-3141635590" target="_blank" class="btn btn-gator w-100">Shop Fanatics</a>
-                        </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-football-ball fa-2x text-primary mb-2"></i>
+                        <h6>Fanatics</h6>
+                        <a href="https://www.fanatics.com/college/florida-gators/o-27+t-89617425+z-936538-3141635590" target="_blank" class="btn btn-sm btn-gator">
+                            Shop Now
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Amazon</h5>
-                            <a href="https://www.amazon.com/s?k=florida+gators+basketball" target="_blank" class="btn btn-gator w-100">Shop Amazon</a>
-                        </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-shopping-bag fa-2x text-primary mb-2"></i>
+                        <h6>Amazon</h6>
+                        <a href="https://www.amazon.com/s?k=florida+gators+basketball+gear" target="_blank" class="btn btn-sm btn-gator">
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="feature-card text-center">
+                        <i class="fas fa-hat-cowboy fa-2x text-primary mb-2"></i>
+                        <h6>Lids</h6>
+                        <a href="https://www.lids.com/college-florida-gators/o-16+t-78839225+z-91574-2817306798" target="_blank" class="btn btn-sm btn-gator">
+                            Shop Now
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Game Day Info -->
+        <section id="gameday" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-info-circle"></i> GAME DAY INFO</h2>
+            <div class="feature-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>O'Connell Center</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> 250 Gale Lemerand Dr, Gainesville, FL 32611</p>
+                        <p><i class="fas fa-users"></i> Capacity: 10,133</p>
+                        <p><i class="fas fa-parking"></i> <a href="https://floridagators.com/sports/2016/6/21/facilities-oconnell-center-parking.aspx" target="_blank">Parking Information</a></p>
+                        <p><i class="fas fa-door-open"></i> Gates open 60 minutes before tipoff</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Fan Guidelines</h4>
+                        <ul>
+                            <li>Clear bag policy in effect</li>
+                            <li>No outside food or beverages</li>
+                            <li>Wear Orange & Blue!</li>
+                            <li>Be LOUD on defense!</li>
+                        </ul>
+                        <a href="https://floridagators.com/sports/2016/6/10/facilities-connell-center.aspx" target="_blank" class="btn btn-gator">
+                            <i class="fas fa-external-link-alt"></i> Full Venue Guide
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fan Zone -->
+        <section id="fanzone" class="mb-5">
+            <h2 class="mb-4"><i class="fas fa-users"></i> FAN ZONE</h2>
+            <div class="feature-card">
+                <h4>Connect with Gator Nation</h4>
+                <div class="row mt-3">
+                    <div class="col-md-3 col-6 mb-2">
+                        <a href="https://twitter.com/GatorsMBK" target="_blank" class="btn btn-outline-primary w-100">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6 mb-2">
+                        <a href="https://www.instagram.com/gatorsmbb/" target="_blank" class="btn btn-outline-danger w-100">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6 mb-2">
+                        <a href="https://www.facebook.com/GatorsMBK" target="_blank" class="btn btn-outline-primary w-100">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-6 mb-2">
+                        <a href="https://www.youtube.com/c/floridagators" target="_blank" class="btn btn-outline-danger w-100">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <h4>Gator Basketball Traditions</h4>
+                <ul>
+                    <li>🐊 The Gator Chomp during free throws</li>
+                    <li>🎵 "We Are The Boys from Old Florida"</li>
+                    <li>🏀 Orange & Blue striped overalls</li>
+                    <li>📣 "Orange!" "Blue!" chant</li>
+                    <li>🔥 Rowdy Reptiles student section</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <p><strong>DISCLAIMER:</strong> This website is not affiliated with, endorsed by, or associated with the University of Florida, University Athletic Association, or NCAA. All trademarks, logos, and brand names are the property of their respective owners. This is an unofficial fan site created by Robbiek7455.</p>
+            <p>Data provided by ESPN API for educational purposes. <a href="https://github.com/Robbiek7455" target="_blank">Follow on GitHub</a></p>
+        </div>
     </div>
 
-    <!-- Disclaimer -->
-    <div class="disclaimer">
-        <p><strong>Disclaimer:</strong> This website is not affiliated with, endorsed by, or associated with the University of Florida, University Athletic Association, or NCAA. All trademarks, logos, and brand names are the property of their respective owners. This is an unofficial fan site.</p>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>© 2024 Florida Gators Basketball Hub | Created by <a href="https://github.com/Robbiek7455" target="_blank" class="text-warning">Robbiek7455</a></p>
+            <p>Go Gators! 🐊🏀</p>
+            <div class="mt-3">
+                <a href="#home" class="text-white me-3">Back to Top</a>
+                <a href="https://floridagators.com" target="_blank" class="text-white me-3">Official Site</a>
+                <a href="https://github.com/Robbiek7455/florida-gators-basketball" target="_blank" class="text-white">GitHub Repo</a>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Data fetching script -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script src="app.js"></script>
 </body>
 </html>
